@@ -12,4 +12,4 @@ COPY config/nginx/default.conf /etc/nginx/http.d/default.conf
 
 WORKDIR /app
 
-CMD multirun -v "crond -f -d 6" "php-fpm -F" "nginx -g 'daemon off;'"
+CMD multirun -v "php-fpm -F" "nginx -g 'daemon off;'"
