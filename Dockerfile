@@ -15,6 +15,7 @@ RUN apk add --no-cache \
         libzip-dev \
         multirun \
         nginx \
+        npm \
         zlib-dev \
     && docker-php-ext-install \
         bcmath \
