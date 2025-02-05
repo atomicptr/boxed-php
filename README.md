@@ -1,6 +1,13 @@
 # boxed-php
 
-PHP application base container using NGINX with PHP-FPM
+Convenient PHP base container
+
+## Features
+
+- PHP-FPM and nginx in one container
+- Runs Laravel and Symfony applications out of the box
+- Supports PHP versions 8.2, 8.3 and 8.4
+- Updated daily
 
 ## Usage
 
