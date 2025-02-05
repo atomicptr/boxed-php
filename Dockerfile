@@ -17,6 +17,7 @@ RUN apk add --no-cache \
         nginx \
         zlib-dev \
     && docker-php-ext-install \
+        bcmath \
         exif \
         gd \
         intl \
