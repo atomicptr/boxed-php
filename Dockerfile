@@ -2,6 +2,9 @@ ARG PHP_VERSION="8.4"
 
 FROM php:${PHP_VERSION}-fpm-alpine
 
+# install composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
 RUN apk add --no-cache multirun nginx
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/10-php-production-base.ini"
