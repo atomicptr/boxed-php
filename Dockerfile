@@ -22,6 +22,7 @@ RUN apk add --no-cache \
         exif \
         gd \
         intl \
+        opcache \
         zip
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/10-php-production-base.ini"
