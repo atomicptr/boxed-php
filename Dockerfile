@@ -9,6 +9,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN apk add --no-cache \
         curl \
         curl-dev \
+        bash \
         icu-dev \
         libpng-dev \
         libxml2-dev \
@@ -30,7 +31,8 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/10-php-production-base.in
 COPY app /app
 COPY config/php/php.ini "$PHP_INI_DIR/20-php.ini"
 COPY config/nginx/default.conf /etc/nginx/http.d/default.conf
+COPY boot.sh /boot.sh
 
 WORKDIR /app
 
-CMD multirun -v "php-fpm -F" "nginx -g 'daemon off;'"
+CMD ["/boot.sh"]
