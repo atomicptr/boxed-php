@@ -31,8 +31,11 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/10-php-production-base.in
 COPY app /app
 COPY config/php/php.ini "$PHP_INI_DIR/20-php.ini"
 COPY config/nginx/default.conf /etc/nginx/http.d/default.conf
-COPY boot.sh /boot.sh
+COPY run/boot.sh /boot.sh
+COPY run/php-fpm.sh /php-fpm.sh
+COPY run/nginx.sh /nginx.sh
 
 WORKDIR /app
 
+ENTRYPOINT ["bash"]
 CMD ["/boot.sh"]

@@ -20,4 +20,4 @@ echo ""
 echo "   [boxed-php] Starting php-fpm and nginx..."
 echo ""
 
-multirun -v "php-fpm -F" "nginx -g 'daemon off;'"
+multirun -v "/php-fpm.sh" "/nginx.sh"
