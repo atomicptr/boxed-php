@@ -29,7 +29,8 @@ RUN apk add --no-cache \
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/10-php-production-base.ini"
 
 COPY app /app
-COPY config/php/php.ini "$PHP_INI_DIR/20-php.ini"
+COPY config/php/php.ini "/usr/local/etc/php/20-boxed-php.ini"
+COPY config/php/php-fpm.conf "/usr/local/etc/php-fpm.d/zzz-boxed-php.conf"
 COPY config/nginx/default.conf /etc/nginx/http.d/default.conf
 COPY run/boot.sh /boot.sh
 COPY run/php-fpm.sh /php-fpm.sh
