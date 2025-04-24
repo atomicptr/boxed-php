@@ -26,12 +26,20 @@ RUN apk add --no-cache \
         opcache \
         zip
 
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/10-php-production-base.ini"
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/conf.d/10-php-production-base.ini"
 
 COPY app /app
-COPY config/php/php.ini "/usr/local/etc/php/20-boxed-php.ini"
+
+# php config
+COPY config/php/php.ini "/usr/local/etc/php/conf.d/20-boxed-php.ini"
+
+# php-fpm config
 COPY config/php/php-fpm.conf "/usr/local/etc/php-fpm.d/zzz-boxed-php.conf"
+
+# nginx config
 COPY config/nginx/default.conf /etc/nginx/http.d/default.conf
+
+# start scripts
 COPY run/boot.sh /boot.sh
 COPY run/php-fpm.sh /php-fpm.sh
 COPY run/nginx.sh /nginx.sh
