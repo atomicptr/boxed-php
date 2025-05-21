@@ -7,18 +7,27 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # install dependencies
 RUN apk add --no-cache \
+        bash \
         curl \
         curl-dev \
-        bash \
+        freetype-dev \
         icu-dev \
+        libjpeg-turbo-dev \
         libpng-dev \
+        libwebp-dev \
         libxml2-dev \
         libzip-dev \
         multirun \
         nginx \
         npm \
-        zlib-dev \
-    && docker-php-ext-install \
+        zlib-dev
+
+RUN docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg \
+    --with-webp
+
+RUN docker-php-ext-install -j8 \
         bcmath \
         exif \
         gd \
