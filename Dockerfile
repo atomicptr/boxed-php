@@ -50,6 +50,7 @@ COPY config/nginx/default.conf /etc/nginx/http.d/default.conf
 
 # start scripts
 COPY run/boot.sh /boot.sh
+COPY run/config-gen.sh /config-gen.sh
 COPY run/php-fpm.sh /php-fpm.sh
 COPY run/nginx.sh /nginx.sh
 
