@@ -22,18 +22,23 @@ RUN apk add --no-cache \
         npm \
         zlib-dev
 
+RUN docker-php-ext-configure intl && docker-php-ext-install intl
+
 RUN docker-php-ext-configure gd \
     --with-freetype \
     --with-jpeg \
-    --with-webp
+    --with-webp \
+    && docker-php-ext-install gd
 
-RUN docker-php-ext-install -j8 \
-        bcmath \
-        exif \
-        gd \
-        intl \
-        opcache \
-        zip
+# Install opcache only on PHP <8.5 (default since 8.5)
+RUN if php -r "exit(version_compare(PHP_VERSION, '8.5.0', '<') ? 0 : 1);"; then \
+        docker-php-ext-install opcache; \
+    fi
+
+RUN docker-php-ext-install \
+    bcmath \
+    exif \
+    zip
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/conf.d/10-php-production-base.ini"
 
