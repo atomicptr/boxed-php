@@ -26,5 +26,8 @@ if [[ -n "${PHP_UPLOAD_MAX_FILESIZE+x}" ]]; then
     echo "    [boxed-php] ENV PHP_UPLOAD_MAX_FILESIZE found: $PHP_UPLOAD_MAX_FILESIZE -> PHP Setting: upload_max_filesize"
     echo "upload_max_filesize = $PHP_UPLOAD_MAX_FILESIZE" >>"$php_env_config"
     echo "    [boxed-php] ENV PHP_UPLOAD_MAX_FILESIZE found: $PHP_UPLOAD_MAX_FILESIZE -> NGINX Setting: client_max_body_size"
-    sed -i "s/client_max_body_size 10M/client_max_body_size ${PHP_UPLOAD_MAX_FILESIZE}/" /etc/nginx/http.d/default.conf
+    sed -i "s/client_max_body_size 1m/client_max_body_size ${PHP_UPLOAD_MAX_FILESIZE,,}/" /etc/nginx/nginx.conf
+else
+    # if user hasnt set it at least set it to our default value
+    sed -i "s/client_max_body_size 1m/client_max_body_size 10m/" /etc/nginx/nginx.conf
 fi
