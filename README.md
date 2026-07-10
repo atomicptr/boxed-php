@@ -34,6 +34,7 @@ COPY . /app
 - **PHP_MAX_INPUT_TIME**: Sets PHP `max_input_time` to limit input parsing time in seconds (default: 60; affects uploads).
 - **PHP_MEMORY_LIMIT**: Sets PHP `memory_limit` for maximum script memory usage (default: 128M; e.g., "256M").
 - **PHP_UPLOAD_MAX_FILESIZE**: Sets PHP `upload_max_filesize` for maximum uploaded file size (default: 2M; e.g., "10M").
+- **PHP_POST_MAX_SIZE**: Sets PHP `post_max_size` and nginx `client_max_body_size` for maximum request body size (default: 10M; set this higher than `PHP_UPLOAD_MAX_FILESIZE` to allow for multipart overhead).
 
 ## License
 
