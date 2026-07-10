@@ -6,9 +6,10 @@ Convenient PHP base container
 
 - PHP-FPM and nginx in one container
 - Runs Laravel and Symfony applications out of the box
-- Supports PHP versions 8.2, 8.3 and 8.4
+- Supports PHP versions 8.2, 8.3, 8.4 and 8.5
 - Updated daily
-- Configurate vital settings via ENV vars
+- Configure vital settings via environment variables
+- Built-in health check for nginx and PHP-FPM
 
 ## Usage
 

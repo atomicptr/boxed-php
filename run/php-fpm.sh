@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
+set -Eeuo pipefail
+
 umask 002
-php-fpm -F
+exec php-fpm -F

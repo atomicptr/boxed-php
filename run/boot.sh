@@ -1,20 +1,18 @@
 #!/usr/bin/env bash
 
-# This is intended to be used inside Docker
+set -Eeuo pipefail
 
 echo ""
 echo "    [boxed-php] Welcome!"
-echo "    [boxed-php] PHP info..."
+echo "    [boxed-php] PHP $(php -r 'echo PHP_VERSION;')"
 echo ""
 
 if [[ -f /config-gen.sh ]]; then
     echo ""
     echo "    [boxed-php] /config-gen.sh found, executing..."
     echo ""
-    bash /config-gen.sh
+    /config-gen.sh
 fi
-
-php -ini
 
 if [[ -f /pre_boot.sh ]]; then
     echo ""
@@ -24,8 +22,12 @@ if [[ -f /pre_boot.sh ]]; then
     echo ""
 fi
 
+echo "    [boxed-php] Validating configuration..."
+php-fpm -t
+nginx -t
+
 echo ""
 echo "   [boxed-php] Starting php-fpm and nginx..."
 echo ""
 
-multirun -v "/php-fpm.sh" "/nginx.sh"
+exec multirun -v "/php-fpm.sh" "/nginx.sh"

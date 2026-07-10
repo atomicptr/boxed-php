@@ -55,12 +55,19 @@ COPY config/php/php-fpm.conf "/usr/local/etc/php-fpm.d/zzz-boxed-php.conf"
 COPY config/nginx/default.conf /etc/nginx/http.d/default.conf
 
 # start scripts
-COPY run/boot.sh /boot.sh
-COPY run/config-gen.sh /config-gen.sh
-COPY run/php-fpm.sh /php-fpm.sh
-COPY run/nginx.sh /nginx.sh
+COPY --chmod=0755 run/boot.sh /boot.sh
+COPY --chmod=0755 run/config-gen.sh /config-gen.sh
+COPY --chmod=0755 run/php-fpm.sh /php-fpm.sh
+COPY --chmod=0755 run/nginx.sh /nginx.sh
 
 WORKDIR /app
 
-ENTRYPOINT ["bash"]
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+    CMD curl --fail --silent --show-error http://127.0.0.1/healthz || exit 1
+
+STOPSIGNAL SIGTERM
+
+ENTRYPOINT ["docker-php-entrypoint"]
 CMD ["/boot.sh"]
