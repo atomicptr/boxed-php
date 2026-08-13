@@ -41,6 +41,11 @@ RUN docker-php-ext-install \
     exif \
     zip
 
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
+    && pecl install igbinary \
+    && docker-php-ext-enable igbinary \
+    && apk del .build-deps
+
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/conf.d/10-php-production-base.ini"
 
 COPY app /app
